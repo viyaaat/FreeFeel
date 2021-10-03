@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+    <body>
+        <%- include('./partials/navbar.ejs') %>
+            <!-- signup form -->
+            <form>
+                <h2>Sign Up</h2>
+                <label for="email">Email</label>
+                <input type="text" name="email" required>
+                <div class="email error"></div>
+
+                <label for="password">Set Password</label>
+                <input type="password" name="password" required>
+                <div class="password error"></div>
+
+                <button>Sign up</button>
+            </form>
+
+
+            <script>
+
+                //extracting handle from email
+                function modify(email) {
+                    let pos = email.indexOf('@');
+                    return email.substring(0, pos);
+                }
+
+                const form = document.querySelector('form');
+
+                //grabbing error feilds
+                const emailError = document.querySelector('.email.error');
+                const passwordError = document.querySelector('.password.error');
+
+                //submit button 
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    //reset errors
+                    emailError.textContent = '';
+                    passwordError.textContent = '';
+
+                    //get values
+                    const email = form.email.value;
+                    const password = form.password.value;
+                    const name = modify(email);
+                    const gender = 'unknown';
+                    const batch = 'unknown';
+                    const dept = 'unknown';
+                    const other = 'Nothing yet';
+
+                    //trying to signup
+                    try {
+
+                        //post req to signup
+                        const res = await fetch('/signup', {
+                            method: 'POST',
+                            body: JSON.stringify({ email, password, name, gender, batch, dept, other }),
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+
+                        //error handeling
+                        const data = await res.json();
+                        if (data.errors) {
+                            emailError.textContent = data.errors.email;
+                            passwordError.textContent = data.errors.password;
+                        }
+                        //if successful redirecting to home page
+                        if (data.user) {
+                            let redir = '/user/';
+                            redir += data.user._id;
+                            //console.log(redir);
+                            location.assign(redir);
+                        }
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
+                })
+            </script>
+            <%- include('partials/footer'); -%>

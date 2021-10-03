@@ -1,0 +1,47 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+    <body>
+        <%- include("./partials/navbar.ejs") %>
+
+            <% if(user==null) {%>
+                <div class="details content">
+                    <a href="/">
+                        <h2>Session Expired Click Here </h2>
+                    </a>
+                </div>
+                <% }else{ %>
+
+                    <div class="details content">
+
+                        <h2 style="color: crimson; margin-bottom: 5px;">
+                            <%= profile.name %>
+                        </h2>
+
+                        <% if(user._id==profile.id){ %>
+                            <a href="/update/<%= profile.id %> "><button>Update</button></a>
+
+                            <% } %>
+
+                                <div class="content">
+                                    <h4>Email: <%= profile.email %>
+                                    </h4>
+                                    <h4>Gender: <%= profile.gender %>
+                                    </h4>
+                                    <h4>Batch(Graduation year): <%= profile.batch %>
+                                    </h4>
+                                    <h4>Department: <%= profile.dept %>
+                                    </h4>
+                                    <p>
+                                        <%= profile.other %>
+                                    </p>
+                                </div>
+                    </div>
+
+                    <% } %>
+
+                        <%- include("./partials/footer.ejs") %>
+
+    </body>
+
+</html>

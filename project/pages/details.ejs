@@ -1,0 +1,30 @@
+<html lang="en">
+<%- include("../partials/head.ejs") %>
+
+    <body>
+        <%- include("../partials/navbar.ejs") %>
+
+            <div class="details content">
+
+
+                <h2 style="color: crimson; ">
+                    <%= blog.title %>
+                </h2>
+
+                <h4>
+                    <%= blog.snippet %>
+                </h4>
+
+                <div class="content">
+                    <p>
+                        <%= blog.body %>
+                    </p>
+                </div>
+
+            </div>
+
+            <%- include("../partials/footer.ejs") %>
+
+    </body>
+
+</html>

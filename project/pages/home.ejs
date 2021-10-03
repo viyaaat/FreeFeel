@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+    <body>
+
+        <%- include('../partials/navbar.ejs') %>
+
+            <div class="blogs content">
+                <% if(user){%>
+                    <h2><a style="color: red;" href="/blogs">All Confessions Here => </a></h2>
+                    <% } else{ %>
+                        <h2><a style="color: red;" href="/login">Login to Enjoy ;)</a></h2>
+                        <% } %>
+                            <img src="/confession.jpg" alt="home image" class="homeimg">
+
+            </div>
+            <%- include('../partials/footer.ejs') %>
+    </body>
+
+</html>

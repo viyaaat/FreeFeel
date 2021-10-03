@@ -1,0 +1,27 @@
+<nav>
+    <div class="site-title">
+        <a href="/">
+            <h1 style="color:red;">freefeel</h1>
+        </a>
+        <p>Share Your Heart at nitt confessions</p>
+    </div>
+
+
+    <ul>
+        <% if(user){ %>
+            <li><a href='/user/<%= user._id %> '>WelCome, <%= user.name %></a>
+            </li>
+            <% } %>
+
+                <li><a href="/blogs">All</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/blogs/create">confess</a></li>
+                <% if(user){ %>
+                    <li><a href="/logout">Log out</a></li>
+                    <% }else{ %>
+                        <li><a href="/login">Log in</a></li>
+                        <li><a href="/signup" class="btn">Sign up</a></li>
+                        <% } %>
+
+    </ul>
+</nav>

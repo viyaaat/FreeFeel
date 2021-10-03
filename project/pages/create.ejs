@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <%- include('../partials/navbar.ejs') %>
+
+
+            <div class="create-blog content">
+                <form action="/blogs" method="POST">
+                    <label for="title">To ( name, person anything ) *</label>
+                    <input type="text" id="title" required name="title">
+                    <br>
+                    <label for="body">Write Here *</label>
+                    <textarea id="body" cols="10" rows="2" required name="body"></textarea>
+                    <br>
+                    <label for="snippet">Hints on who are you </label>
+                    <input type="text" id="snippet" name="snippet">
+                    <br>
+                    <button>Submit</button>
+                </form>
+            </div>
+            <%- include('../partials/footer.ejs') %>
+
+    </body>
+
+
+</html>

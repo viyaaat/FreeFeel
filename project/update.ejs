@@ -1,0 +1,88 @@
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+    <body>
+        <%- include("./partials/navbar.ejs") %>
+
+            <% if(user==null) {%>
+                <div class="details content">
+                    <a href="/">
+                        <h2>Session Expired Click Here </h2>
+                    </a>
+                </div>
+                <% }else{ %>
+
+                    <% if(profile.id==user._id){ %>
+                        <div class="details content">
+
+                            <h2 style="color: crimson; margin-bottom: 5px;">
+                                Email : <%= profile.email %>
+                            </h2>
+
+                            <form data-doc="<%= profile.id %> ">
+                                <h2>Profile</h2>
+                                <label for="name">Name</label>
+                                <input type="text" name="name" value="<%= profile.name %> " required>
+
+                                <label for="gender">Gender</label>
+                                <input type="text" name="gender" value="<%= profile.gender%>" required>
+
+                                <label for="batch">Batch(Graduation year)</label>
+                                <input type="text" name="batch" value="<%= profile.batch%>" required>
+
+                                <label for="dept">Department</label>
+                                <input type="text" name="dept" value="<%= profile.dept%>" required>
+
+                                <label for="other">Something about you</label>
+                                <input type="text" name="other" value="<%= profile.other %>" required>
+
+
+                                <button>Update</button>
+                            </form>
+                        </div>
+                        <% }else{ %>
+                            <h1>You came wrong way</h1>
+                            <% } %>
+
+                                <% } %>
+
+                                    <%- include("./partials/footer.ejs") %>
+                                        <script>
+                                            const form = document.querySelector('form');
+
+                                            //submit button
+                                            form.addEventListener('submit', async (e) => {
+                                                e.preventDefault();
+
+                                                //get values from input feild
+                                                const name = form.name.value;
+                                                const gender = form.gender.value;
+                                                const batch = form.batch.value;
+                                                const dept = form.dept.value;
+                                                const other = form.other.value;
+
+
+                                                //try to signup
+                                                try {
+
+                                                    console.log(form.dataset.doc);
+
+                                                    //post req to signup
+                                                    const res = await fetch('/update/' + form.dataset.doc, {
+                                                        method: 'PUT',
+                                                        body: JSON.stringify({ name, gender, batch, dept, other }),
+                                                        headers: { 'Content-Type': 'application/json' }
+                                                    });
+
+                                                    const data = await res.json();
+                                                    location.assign('/user/' + data._id);
+
+                                                }
+                                                catch (err) {
+                                                    console.log(err);
+                                                }
+                                            })
+                                        </script>
+    </body>
+
+</html>
